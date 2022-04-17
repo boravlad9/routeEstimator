@@ -38,7 +38,8 @@ public class FileInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         try {
-            URL resource = ClassLoader.getSystemResource("RoutesEvaluation_log.txt");
+            URL resource = FileInitializer.class.getClassLoader().getSystemResource("RoutesEvaluation_log.txt");
+            System.out.println(resource.toURI());
             File myObj = new File(resource.toURI());
             Scanner myReader = new Scanner(myObj);
             List<Pattern> ignoredPatterns = new ArrayList<>();
