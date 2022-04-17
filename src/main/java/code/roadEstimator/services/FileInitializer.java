@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.ParseException;
@@ -38,11 +37,7 @@ public class FileInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         try {
-
-            URL resource = this.getClass().getResource("/RoutesEvaluation_log.txt");
-            System.out.println(resource.toURI());
-            File myObj = new File(resource.toURI());
-            Scanner myReader = new Scanner(myObj);
+            BufferedReader  myReader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("RoutesEvaluation_log.txt")));
             List<Pattern> ignoredPatterns = new ArrayList<>();
             ignoredPatterns.add(Pattern.compile("[0-9]?[0-9]/[0-9]?[0-9]/[0-9]?[0-9] [0-9]?[0-9]:[0-9]?[0-9]:[0-9]?[0-9], LocationService : message : onCreate\\(\\)"));
             ignoredPatterns.add(Pattern.compile("[0-9]?[0-9]/[0-9]?[0-9]/[0-9]?[0-9] [0-9]?[0-9]:[0-9]?[0-9]:[0-9]?[0-9], LocationService : message : startLocationUpdates\\(\\)"));
@@ -58,8 +53,8 @@ public class FileInitializer implements CommandLineRunner {
             float last_lat, last_long, current_lat, current_long;
             boolean flag = true;
             List<Noduri> noduriList = new ArrayList<>();
-            while (myReader.hasNextLine()) {
-                String data = myReader.nextLine();
+            while (myReader.ready()) {
+                String data = myReader.readLine();
 
                 boolean flagIgnore = true;
                 for (Pattern pattern : ignoredPatterns) {
@@ -102,7 +97,7 @@ public class FileInitializer implements CommandLineRunner {
             if (!flag) {
                 System.out.println("Some data was lost due to inappropriate parsing.");
             }
-        } catch (FileNotFoundException | URISyntaxException | ParseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
