@@ -37,7 +37,7 @@ public class FileInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) {
         try {
-            BufferedReader  myReader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream("RoutesEvaluation_log.txt")));
+            BufferedReader  myReader = new BufferedReader(new InputStreamReader(this.getClass().getResourceAsStream("/RoutesEvaluation_log.txt")));
             List<Pattern> ignoredPatterns = new ArrayList<>();
             ignoredPatterns.add(Pattern.compile("[0-9]?[0-9]/[0-9]?[0-9]/[0-9]?[0-9] [0-9]?[0-9]:[0-9]?[0-9]:[0-9]?[0-9], LocationService : message : onCreate\\(\\)"));
             ignoredPatterns.add(Pattern.compile("[0-9]?[0-9]/[0-9]?[0-9]/[0-9]?[0-9] [0-9]?[0-9]:[0-9]?[0-9]:[0-9]?[0-9], LocationService : message : startLocationUpdates\\(\\)"));
