@@ -32,13 +32,13 @@ public class FileInitializer implements CommandLineRunner {
     }
 
     public void reviewNodes(List<Noduri> noduriList){
-        
+
     }
 
     @Override
     public void run(String... args) {
         try {
-            URL resource = getClass().getClassLoader().getResource("RoutesEvaluation_log.txt");
+            URL resource = ClassLoader.getSystemResource("RoutesEvaluation_log.txt");
             File myObj = new File(resource.toURI());
             Scanner myReader = new Scanner(myObj);
             List<Pattern> ignoredPatterns = new ArrayList<>();
