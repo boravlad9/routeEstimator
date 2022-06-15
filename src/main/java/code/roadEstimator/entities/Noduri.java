@@ -13,7 +13,7 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
-public class Noduri  implements Serializable {
+public class Noduri  implements Serializable, Comparable<Noduri> {
 
     private static final long serialVersionUID = 1L;
 
@@ -40,6 +40,8 @@ public class Noduri  implements Serializable {
 
     @Column(name = "current_long", nullable = false)
     private float current_long;
+
+    private double speed;
 
     public Noduri() {
     }
@@ -134,5 +136,18 @@ public class Noduri  implements Serializable {
 
     public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    @Override
+    public int compareTo(Noduri o) {
+        return Double.compare(this.getSpeed(), o.getSpeed());
     }
 }
