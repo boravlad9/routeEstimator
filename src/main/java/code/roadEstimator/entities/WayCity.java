@@ -1,6 +1,8 @@
 package code.roadEstimator.entities;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -29,10 +31,8 @@ public class WayCity implements Serializable {
     @Column(name = "idWay", nullable = false)
     private long idWay;
 
-    @OneToMany(mappedBy="wayCity", cascade=CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     private List<NodesCity> nodesCityList;
-
-
 
     public WayCity(String name, String type, long idWay) {
         this.name = name;

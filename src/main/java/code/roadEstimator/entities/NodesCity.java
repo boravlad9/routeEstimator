@@ -1,6 +1,8 @@
 package code.roadEstimator.entities;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -22,32 +24,32 @@ public class NodesCity implements Serializable {
     private long NodeId;
 
     @Column(name = "long_data", nullable = false)
-    private float longData;
+    private double longData;
 
     @Column(name = "lat_data", nullable = false)
-    private float latData;
+    private double latData;
 
-    @ManyToOne(cascade=CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
     private WayCity wayCity;
 
     public NodesCity() {
     }
 
-    public NodesCity(long nodeId, float longData, float latData, WayCity wayCity) {
+    public NodesCity(long nodeId, double longData, double latData, WayCity wayCity) {
         NodeId = nodeId;
         this.longData = longData;
         this.latData = latData;
         this.wayCity = wayCity;
     }
 
-    public NodesCity(UUID id, long nodeId, float longData, float latData) {
+    public NodesCity(UUID id, long nodeId, double longData, double latData) {
         this.id = id;
         NodeId = nodeId;
         this.longData = longData;
         this.latData = latData;
     }
 
-    public NodesCity(long nodeId, float longData, float latData) {
+    public NodesCity(long nodeId, double longData, double latData) {
         NodeId = nodeId;
         this.longData = longData;
         this.latData = latData;
@@ -77,19 +79,19 @@ public class NodesCity implements Serializable {
         NodeId = nodeId;
     }
 
-    public float getLongData() {
+    public double getLongData() {
         return longData;
     }
 
-    public void setLongData(float longData) {
+    public void setLongData(double longData) {
         this.longData = longData;
     }
 
-    public float getLatData() {
+    public double getLatData() {
         return latData;
     }
 
-    public void setLatData(float latData) {
+    public void setLatData(double latData) {
         this.latData = latData;
     }
 }

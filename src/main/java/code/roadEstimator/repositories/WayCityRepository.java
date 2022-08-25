@@ -1,11 +1,11 @@
 package code.roadEstimator.repositories;
 
-import code.roadEstimator.entities.Noduri;
+import code.roadEstimator.entities.WayCity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
 @Repository
-public interface NoduriRepository extends JpaRepository<Noduri, UUID> {
+public interface WayCityRepository extends JpaRepository<WayCity, UUID> {
 }

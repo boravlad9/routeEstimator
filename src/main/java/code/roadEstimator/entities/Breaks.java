@@ -3,6 +3,8 @@ package code.roadEstimator.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Math.max;
+
 public class Breaks {
 
     private List<Noduri> sortedValues;
@@ -38,7 +40,7 @@ public class Breaks {
     }
 
     private List<Noduri> classList(int i) {
-        int classStart = (i == 0) ? 0 : breaks[i - 1] + 1;
+        int classStart = max(0, (i == 0) ? 0 : breaks[i - 1] + 1);
         int classEnd = breaks[i];
         List<Noduri> list = new ArrayList<Noduri>();
         for (int j = classStart; j <= classEnd; ++j) {
@@ -80,12 +82,7 @@ public class Breaks {
         return breaks.length;
     }
 
-    /*public int classOf(double value) {
-        for (int i = 0; i != numClassses(); ++i) {
-            if (value <= getClassMax(i)) {
-                return i;
-            }
-        }
-        return numClassses() - 1;
-    }*/
+    public int[] getBreaks() {
+        return breaks;
+    }
 }

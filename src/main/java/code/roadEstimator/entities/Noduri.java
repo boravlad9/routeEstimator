@@ -10,6 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity
@@ -41,6 +46,7 @@ public class Noduri  implements Serializable, Comparable<Noduri> {
     @Column(name = "current_long", nullable = false)
     private float current_long;
 
+    @Column(name = "speed", nullable = false)
     private double speed;
 
     public Noduri() {
@@ -143,11 +149,49 @@ public class Noduri  implements Serializable, Comparable<Noduri> {
     }
 
     public void setSpeed(double speed) {
+
         this.speed = speed;
     }
 
     @Override
     public int compareTo(Noduri o) {
         return Double.compare(this.getSpeed(), o.getSpeed());
+    }
+    public boolean isWeekday() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.getTimestamp());
+        return cal.getTime().getDay() == 0 || cal.getTime().getDay() == 6;
+    }
+
+    public boolean isNight() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.getTimestamp());
+        if (cal.get(Calendar.AM_PM) == Calendar.PM) {
+            if (cal.getTime().getHours() != 12) {
+                return  cal.getTime().getHours() + 12 >= 19 || cal.getTime().getHours() + 12 <= 7;
+            }
+        }
+        return  cal.getTime().getHours() >= 19 || cal.getTime().getHours() <= 7;
+    }
+
+    public int getHour() throws ParseException {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.getTimestamp());
+        if (cal.get(Calendar.AM_PM) == Calendar.PM) {
+            if (cal.getTime().getHours() != 12) {
+                return cal.getTime().getHours() + 12;
+            }
+        }
+        return cal.getTime().getHours();
+    }
+
+    public int getDay() {
+        return this.getTimestamp().getDay();
+    }
+
+    public int getYear() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.getTimestamp());
+        return cal.getTime().getYear() + 1900;
     }
 }

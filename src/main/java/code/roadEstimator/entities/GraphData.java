@@ -5,27 +5,45 @@ import java.util.List;
 
 public class GraphData {
 
-    private static List<NodesCity> nodesCities;
-    private static List<WayCity> wayCities;
+    private List<NodesCity> nodesCities = new ArrayList<>();
+    private List<WayCity> wayCityList = new ArrayList<>();
+    private List<Street> streetList = new ArrayList<>();
 
-    public GraphData() {
-        nodesCities = new ArrayList<>();
-        wayCities = new ArrayList<>();
+    private static GraphData instance = null;
+
+    private GraphData() {
+
+    }
+
+    public static GraphData getInstace() {
+        if (instance == null) {
+            instance = new GraphData();
+        }
+        return instance;
     }
 
     public List<NodesCity> getNodesCities() {
         return nodesCities;
     }
 
-    public List<WayCity> getWayCities() {
-        return wayCities;
+    public void setNodesCities(List<NodesCity> nodesCities) {
+        this.nodesCities = nodesCities;
     }
 
-    public void addNode(NodesCity nodesCity) {
-        nodesCities.add(nodesCity);
+    public List<WayCity> getWayCityList() {
+        return wayCityList;
     }
 
-    public void addWay(WayCity wayCity) {
-        wayCities.add(wayCity);
+    public void setWayCityList(List<WayCity> wayCityList) {
+        this.wayCityList = wayCityList;
+    }
+
+
+    public List<Street> getStreetList() {
+        return streetList;
+    }
+
+    public void setStreetList(List<Street> streetList) {
+        this.streetList = streetList;
     }
 }
